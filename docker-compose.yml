@@ -1,0 +1,20 @@
+services:
+    postgres_newsletter:
+        image: postgres
+        container_name: postgres_newsletter
+        environment:
+            POSTGRES_PASSWORD: "postgres"
+        ports:
+            - "5432:5432"
+        volumes:
+            - postgres_newsletter:/var/lib/postgresql
+        networks:
+            - network
+
+networks:
+    network:
+        driver: bridge
+
+volumes:
+    postgres_newsletter:
+        driver: local

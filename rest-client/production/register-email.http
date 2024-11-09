@@ -1,0 +1,6 @@
+POST https://api.newsletter.alexgalhardo.com/email
+Content-Type: application/json
+
+{
+	"email": "aleexgalhardoo@gmail.com"
+}
