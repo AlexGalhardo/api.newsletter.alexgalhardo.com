@@ -4,21 +4,16 @@
 		"node": ">=22"
 	},
 	"scripts": {
-		"dev": "bun run --watch src/server.ts",
-		"client": "bun run src/client.ts",
+		"dev": "NODE_NO_WARNINGS=1 tsx watch src/server.ts",
+		"start": "npx rimraf dist && npm run build && NODE_NO_WARNINGS=1 node dist/server.cjs",
+		"start:prod": "NODE_NO_WARNINGS=1 node dist/server.cjs",
 		"format:prettier": "prettier --write \"src/**/*.ts\"",
-		"test:integration": "bun test --timeout 30000",
-		"prepare": "bunx husky",
-		"lint": "biome check src/ --fix --unsafe",
-		"format": "biome format src/ --fix",
-		"prisma:studio": "bunx prisma studio",
-		"prisma:format": "bunx prisma format",
-		"prisma:migrate": "bunx prisma migrate dev",
-		"build-server": "./server",
-		"build-client": "./client",
-		"build": "bun build --compile --minify ./src/server.ts --outfile server && bun build --compile --minify ./src/client.ts --outfile client",
-		"delete-image-and-up-docker": "docker stop $(docker ps -q) && docker rm $(docker ps -aq) && sudo docker build -t api-money-manager.alexgalhardo.com . && docker run -d -p 3000:3000 api-money-manager.alexgalhardo.com",
-		"build-and-up-docker": "sudo docker build -t api-money-manager.alexgalhardo.com . && docker run -d -p 3000:3000 api-money-manager.alexgalhardo.com"
+		"prepare": "npx husky",
+		"lint": "npx biome check src/ --fix --unsafe",
+		"format": "npx biome format src/ --fix",
+		"prisma:studio": "npx prisma studio",
+		"prisma:format": "npx prisma format",
+		"prisma:migrate": "npx prisma migrate dev"
 	},
 	"prisma": {
 		"seed": "ts-node --transpile-only --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
@@ -32,22 +27,42 @@
 		"@faker-js/faker": "^9.2.0",
 		"@prisma/client": "^5.22.0",
 		"@types/nodemailer": "^6.4.16",
+		"cors": "^2.8.5",
+		"dotenv": "^16.4.5",
 		"elysia": "^1.1.24",
+		"express": "^4.21.1",
 		"nodemailer": "^6.9.16",
+		"react": "18.3.1",
+		"react-dom": "18.3.1",
 		"resend": "^4.0.1-alpha.0",
 		"rimraf": "6.0.1",
 		"zod": "^3.23.8"
 	},
 	"devDependencies": {
-		"bun-types": "latest",
+		"@commitlint/cli": "^19.5.0",
+		"@commitlint/config-conventional": "^19.5.0",
+		"@types/cors": "^2.8.17",
+		"@types/express": "4.17.21",
+		"@types/react": "^18.3.12",
 		"husky": "^9.1.6",
 		"prettier": "^3.3.3",
 		"prisma": "^5.22.0",
-		"ts-node": "^10.9.2",
-		"typescript": "^5.6.3",
+		"react-email": "3.0.2",
 		"release-it": "^17.10.0",
-		"@commitlint/cli": "^19.5.0",
-		"@commitlint/config-conventional": "^19.5.0"
+		"ts-node": "^10.9.2",
+		"tsx": "4.19.2",
+		"typescript": "^5.6.3"
+	},
+	"tsup": {
+		"entry": [
+			"src"
+		],
+		"format": [
+			"cjs"
+		],
+		"splitting": false,
+		"sourcemap": true,
+		"clean": true
 	},
 	"lint-staged": {
 		"*.{js,ts,cjs,mjs,d.cts,d.mts,json,jsonc}": [

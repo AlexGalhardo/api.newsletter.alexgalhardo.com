@@ -34,7 +34,7 @@ export default class EmailCreateUseCase implements EmailCreateUseCasePort {
 				});
 
 				if (emailCreated) {
-					if (Bun.env.USE_TELEGRAM_LOG === "true")
+					if (process.env.USE_TELEGRAM_LOG === "true")
 						TelegramLog.info(`\n Email registered\n\n ${JSON.stringify(emailCreated)}\n`);
 
 					try {

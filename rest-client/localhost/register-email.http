@@ -2,6 +2,6 @@ POST http://localhost:3000/email
 Content-Type: application/json
 
 {
-	"email": "aleexgalhardoo@gmail.com"
+	"email": "aleexgvieira@gmail.com"
 }
 

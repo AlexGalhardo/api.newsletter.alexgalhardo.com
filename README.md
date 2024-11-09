@@ -25,13 +25,6 @@ cp .env.example .env
 chmod +x setup.sh && ./setup.sh
 ```
 
-## Tests
-
-a. Running integration tests
-```bash
-bun run test:integration
-```
-
 ## License
 
 [MIT](http://opensource.org/licenses/MIT)

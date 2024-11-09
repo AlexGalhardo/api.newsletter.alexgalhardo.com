@@ -62,6 +62,9 @@ class TelegramLogger {
 	}
 }
 
-const TelegramLog = new TelegramLogger(Bun.env.TELEGRAM_BOT_HTTP_TOKEN, Number(Bun.env.TELEGRAM_BOT_CHANNEL_ID));
+const TelegramLog = new TelegramLogger(
+	process.env.TELEGRAM_BOT_HTTP_TOKEN,
+	Number(process.env.TELEGRAM_BOT_CHANNEL_ID),
+);
 
 export default TelegramLog;
