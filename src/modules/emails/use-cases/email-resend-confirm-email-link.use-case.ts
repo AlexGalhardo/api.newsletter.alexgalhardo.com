@@ -7,6 +7,7 @@ interface EmailResendConfirmEmailLinkUseCaseResponse {
 	success: boolean;
 	email_already_confirmed?: boolean;
 	email_not_registered?: boolean;
+	email_deleted?: boolean;
 }
 
 export interface EmailResendConfirmEmailLinkUseCaseDTO {
@@ -25,6 +26,8 @@ export default class EmailResendConfirmEmailLinkUseCase implements EmailResendCo
 			EmailValidator.parse(payload);
 
 			const result = await this.emailsRepository.updateConfirmEmailToken({ email: payload.email });
+
+			if (result?.email_deleted) return { success: false, email_deleted: true };
 
 			if (result?.email_already_confirmed) return { success: false, email_already_confirmed: true };
 

@@ -15,9 +15,11 @@ app.get("/", (req, res) => {
 	res.json({ success: true, message: "API is on, let's gooo!" });
 });
 
+app.get("/total-subscribers", EmailController.getTotalSubscribers);
 app.get("/health-check", HealthCheckController.index);
 app.post("/email", EmailController.create);
 app.get("/confirm-email/:email/:confirm_email_token", EmailController.verifyConfirmEmailToken);
+app.get("/unsubscribe/:email/:unsubscribe_token", EmailController.unsubscribe);
 app.post("/resend-confirm-email-link", EmailController.resendConfirmEmailLink);
 
 app.use((err, req, res, next) => {
@@ -35,33 +37,33 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.SERVER_PORT ?? 3000;
 
-if (process.env.NODE_ENV === "production") {
-	console.log("...Verificando se é para enviar email... -> ", new Date());
-	setInterval(async () => {
-		const now = new Date();
-		const dayOfWeek = now.getDay();
-		const hours = now.getHours();
-		const minutes = now.getMinutes();
+// if (process.env.NODE_ENV === "production") {
+// 	setInterval(async () => {
+// 		console.log("...Verificando se é para enviar email... -> ", new Date());
+// 		const now = new Date();
+// 		const dayOfWeek = now.getDay();
+// 		const hours = now.getHours();
+// 		const minutes = now.getMinutes();
 
-		if (dayOfWeek >= 0 && dayOfWeek <= 6 && hours === 22 && minutes === 0) {
-			await sendEmails();
-		}
+// 		if (dayOfWeek >= 0 && dayOfWeek <= 6 && hours === 22 && minutes === 0) {
+// 			await sendEmails();
+// 		}
 
-		if (dayOfWeek >= 0 && dayOfWeek <= 6 && hours === 20 && minutes === 30) {
-			await sendEmails();
-		}
+// 		if (dayOfWeek >= 0 && dayOfWeek <= 6 && hours === 20 && minutes === 30) {
+// 			await sendEmails();
+// 		}
 
-		if (dayOfWeek >= 0 && dayOfWeek <= 6 && hours === 21 && minutes === 0) {
-			await sendEmails();
-		}
-	}, 60 * 1000);
-}
+// 		if (dayOfWeek >= 0 && dayOfWeek <= 6 && hours === 21 && minutes === 0) {
+// 			await sendEmails();
+// 		}
+// 	}, 60 * 1000);
+// }
 
-if (process.env.NODE_ENV !== "production") {
-	// setInterval(async () => {
-	// 	await sendEmails();
-	// }, 10 * 1000);
-}
+// if (process.env.NODE_ENV !== "production") {
+// 	(async () => {
+// 		await sendEmails();
+// 	})();
+// }
 
 app.listen(PORT, () => {
 	console.log(`\n\n...🦊 api.newsletter.alexgalhardo.com Server is running at: http://localhost:${PORT}`);

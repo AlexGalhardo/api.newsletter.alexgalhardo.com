@@ -1,5 +1,4 @@
 import fs from "fs";
-import path from "path";
 import prisma from "../config/prisma.config";
 import resend from "../config/resend.config";
 import { FRONT_END_DNS } from "./constants.util";
@@ -10,13 +9,12 @@ export const sendEmails = async () => {
 			confirmed_email_at: {
 				not: null,
 			},
+			deleted_at: null,
 		},
 	});
 
 	for (const item of confirmedEmails) {
 		const htmlTemplate = fs.readFileSync("./src/emails/news.html", "utf-8");
-
-		console.log("htmlTemplate -> ", htmlTemplate);
 
 		const first_news =
 			"O Bitcoin viu uma leve alta no valor nas últimas semanas, com analistas apontando que o interesse institucional pode estar impulsionando essa recuperação. Muitos especialistas acreditam que, apesar da volatilidade, a criptomoeda pode atingir novos recordes em breve, à medida que mais empresas adotam blockchain em suas operações.";
@@ -45,12 +43,12 @@ export const sendEmails = async () => {
 			.replace("{{fifth_news}}", fifth_news)
 			.replace("{{afiliado_um}}", afiliado_um)
 			.replace("{{afiliado_dois}}", afiliado_dois)
-			.replace("{{unsubscribe_url}}", `${FRONT_END_DNS}/unsubscribe`)
+			.replace("{{unsubscribe_url}}", `${FRONT_END_DNS}/unsubscribe/${item.email}/${item.unsubscribe_token}`)
 			.replace("{{frontend_url}}", `${FRONT_END_DNS}`);
 
 		try {
 			const response = await resend.emails.send({
-				from: `news@${String(process.env.RESEND_EMAIL_FROM_DOMAIN)}`,
+				from: `Galhardo-Newsletter@${String(process.env.RESEND_EMAIL_FROM_DOMAIN)}`,
 				to: item.email,
 				subject: "Nova noticia | Noticia quente | Noticia bombastica",
 				html: dynamicHtml,

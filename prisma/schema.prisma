@@ -16,6 +16,8 @@ model Email {
   confirm_email_token            String?   @unique
   confirm_email_token_expires_at DateTime?
 
+  unsubscribe_token            String?   @unique
+
   created_at DateTime  @default(now())
   deleted_at DateTime?
 

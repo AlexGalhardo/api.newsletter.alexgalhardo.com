@@ -3,3 +3,5 @@ node_modules
 .env
 client
 server
+chatgpt.ts
+responses.md
