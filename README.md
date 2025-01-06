@@ -30,3 +30,5 @@ chmod +x setup.sh && ./setup.sh
 [MIT](http://opensource.org/licenses/MIT)
 
 Copyright (c) November 2024-present, [Alex Galhardo](https://github.com/AlexGalhardo)
+
+editado
