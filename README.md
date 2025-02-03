@@ -1,6 +1,6 @@
 <h1 align="center"><a href="https://api.newsletter.alexgalhardo.com" target="_blank">api.newsletter.alexgalhardo.com</a></h1>
 
-## Introduction
+## Introductionn
 
 - API for Galhardo Newsltter
 - Front End Source Code: <https://github.com/AlexGalhardo/newsletter.alexgalhardo.com>
@@ -8,8 +8,6 @@
 - Swagger API Documentation live: <https://api.newsletter.alexgalhardo.com/swagger>
 
 ## Development Setup Local
-
-
 
 1. Clone repository
 ```bash
