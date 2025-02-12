@@ -1,5 +1,7 @@
 <h1 align="center"><a href="https://api.newsletter.alexgalhardo.com" target="_blank">api.newsletter.alexgalhardo.com</a></h1>
 
+
+
 ## Introductionn
 
 - API for Galhardo Newsltter
